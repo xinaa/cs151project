@@ -249,6 +249,23 @@ public class DataModel {
 
 	
 	/**
+	 * Load and add recurring events to the dataModel 
+	 */
+	public void loadInRecurringEvents()
+	{
+		FileParser recurringEventParser = new FileParser("input.txt"); 
+		ArrayList<String[]> inputs = recurringEventParser.parse(); 
+
+		RecurringEventCreator recurringEventCreator = new RecurringEventCreator(inputs); 
+		ArrayList<Event> events = recurringEventCreator.createRecurringEvents();
+		
+		for (Event e : events)
+		{
+			addEvent(e); 
+		}
+	}
+	
+	/**
 	 * Rewrites (updates) the events.txt file to save events for future run of the program  
 	 * Creates event.txt file if none yet exists 
 	 * @throws IOException
