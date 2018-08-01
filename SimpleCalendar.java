@@ -105,6 +105,15 @@ public class SimpleCalendar {
 		westButtonPanel.add(fromFileButton); 
 		
 //		buttonPanel.setAlignmentX(Component.RIGHT_ALIGNMENT); 
+		
+		
+		fromFileButton.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent event)
+					{
+						myCal.loadInRecurringEvents();
+					}
+				});
 
 		//When quit button is pressed, all events in the model are saved to the events.txt file
 		quitButton.addActionListener(new ActionListener()
