@@ -1,10 +1,7 @@
 
+import java.awt.Component;
+import java.awt.Graphics2D;
 import java.util.GregorianCalendar;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * Created so that implementing calendar programs can easily plug in multiple views (preferably JPanels) 
@@ -14,9 +11,8 @@ import javax.swing.event.ChangeListener;
  * @author Christina Andrade
  *
  */
-public interface ViewStrategy extends ChangeListener{
+public interface ViewStrategy{
 
-	void updateCalendar(GregorianCalendar c); 
-	void stateChanged(ChangeEvent e);
-	GregorianCalendar getCalendar(); 	
+	void drawHeader(GregorianCalendar c, Graphics2D g2, Component container); 
+	void drawEventGrid(GregorianCalendar c, DataModel d, Graphics2D g2, Component container); 
 }
