@@ -5,6 +5,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -55,24 +56,15 @@ public class SimpleCalendar {
 		c = new GregorianCalendar(); 
 		DataModel myCal = new DataModel(); 
 		
-		//Create different views
-		ViewStrategy dayView = new DayView(c, myCal); 
-		//Should be initialized with calendar?
-		ViewStrategy weekView = new WeekView(c, myCal); 
-//		ViewStrategy monthView = new MonthView(c, myCal); 
-//		ViewStrategy yearView = new YearView(c, myCal); 
-//		ViewStrategy agendaView = new AgendaView(c, myCal); 
-		
 		//program starts with day view
-		v = dayView;	
+		v = new DayView();	
 		currentView = ViewType.DAY; 
 		
+		ViewPanel viewPanel = new ViewPanel(v, c, myCal);
+		
 		//attach views to data model 
-		myCal.attach(dayView);
-		myCal.attach(weekView);
-//		myCal.attach(monthView);
-//		myCal.attach(yearView);
-//		myCal.attach(agendaView);
+		myCal.attach(viewPanel);
+
 
 		//Load Events from events file if any previously scheduled events exist 
 		//user will be informed if the calendar doesn't have any events yet 
@@ -94,8 +86,8 @@ public class SimpleCalendar {
 		wrapperPanel.add(monthPanel); 
 
 		//Create view panel and add appropriate view 
-		JPanel viewPanel = new JPanel(); 
-		viewPanel.add((Component) v); 
+//		JPanel viewPanel = new JPanel(); 
+//		viewPanel.add((Component) v); 
 		
 		//Create and format panel holding buttons - (create, quit, prev view, next view)
 		JPanel buttonPanel = new JPanel(); 
@@ -180,7 +172,7 @@ public class SimpleCalendar {
 				c = (GregorianCalendar) d.getCalendar().clone();
 				monthPanel.updateCalendar(c);
 				monthPanel.updateSelected(c);
-				v.updateCalendar(c); 
+				viewPanel.updateCalendar(c); 
 				frame.repaint(); 
 			}
 		}); 
@@ -203,7 +195,7 @@ public class SimpleCalendar {
 			{
 				c = new GregorianCalendar(); 
 				
-				v.updateCalendar(c);
+				viewPanel.updateCalendar(c);
 				monthPanel.updateSelected(c); 
 				monthPanel.updateCalendar(c);
 			}
@@ -214,18 +206,14 @@ public class SimpleCalendar {
 			public void actionPerformed(ActionEvent event)
 			{
 				currentView = ViewType.DAY; 
-				viewPanel.remove((Component) v);
-				v = dayView;
-				v.updateCalendar(c);
-				viewPanel.add((Component) v); 
-				frame.revalidate();
+				viewPanel.changeView(new DayView()); 
 				
 				dayViewButton.setForeground(Color.RED);
 				weekViewButton.setForeground(Color.BLACK); 
 				monthViewButton.setForeground(Color.BLACK);
 				yearViewButton.setForeground(Color.BLACK);
 				agendaButton.setForeground(Color.BLACK);
-				
+				//revalidate....?
 				frame.repaint();  
 			}
 		}); 
@@ -235,17 +223,14 @@ public class SimpleCalendar {
 			public void actionPerformed(ActionEvent event)
 			{
 				currentView = ViewType.WEEK;  
-				viewPanel.remove((Component) v);
-				v = weekView;
-				v.updateCalendar(c);
-				viewPanel.add((Component) v); 
-				frame.revalidate(); 
+				viewPanel.changeView(new WeekView()); 
 				
 				dayViewButton.setForeground(Color.BLACK);
 				weekViewButton.setForeground(Color.RED); 
 				monthViewButton.setForeground(Color.BLACK);
 				yearViewButton.setForeground(Color.BLACK);
 				agendaButton.setForeground(Color.BLACK);
+				
 				frame.repaint(); 
 			}
 		}); 
@@ -305,7 +290,7 @@ public class SimpleCalendar {
 						//AGENDA?
 							
 						
-						v.updateCalendar(c); 
+						viewPanel.updateCalendar(c); 
 						monthPanel.updateSelected(c); 
 						monthPanel.updateCalendar(c);
 					}
@@ -338,7 +323,7 @@ public class SimpleCalendar {
 					}
 					//AGENDA?
 					
-					v.updateCalendar(c); 
+					viewPanel.updateCalendar(c); 
 					monthPanel.updateSelected(c);
 					monthPanel.updateCalendar(c);
 				}
