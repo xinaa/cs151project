@@ -60,7 +60,7 @@ public class RecurringEventCreator {
 					hasEvent[i] = true;
 			}
 
-			for (int afterEndMonth = (Integer.parseInt(inputs[3]) + 1) % 12;		//For each day between starting and ending month
+			for (int afterEndMonth = (endMonth + 1) % 12;		//For each day between starting and ending month
 					eventEndDate.get(Calendar.MONTH) != afterEndMonth; 
 					eventStartDate.add(Calendar.DAY_OF_YEAR, 1), eventEndDate.add(Calendar.DAY_OF_YEAR, 1)) {
 				if (hasEvent[eventStartDate.get(Calendar.DAY_OF_WEEK)]) {
