@@ -23,16 +23,17 @@ public class RecurringEventCreator {
 	public ArrayList<Event> createRecurringEvents() {
 		
 		String weekSequence = "SMTWHFA";	//Used to check if event recurs on specific days
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yy"); // Formats date tfor creating event
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy"); // Formats date for creating event
 		SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 		
 		ArrayList<Event> events = new ArrayList<Event>();	//List of events
 
-		for (String[] inputs : eventInputs) { // For every recurring event inputted
+		for (String[] inputs : eventInputs) { // For every recurring event inputed
 
 			if (inputs.length != 7) // Check if valid number of inputs were given
-				return null;
+				return null; //Abandons everything event events already created :l
 
+			//Get event details from the String in the Array
 			String eventName = inputs[0];
 			int year = Integer.parseInt(inputs[1]);
 			int startMonth = Integer.parseInt(inputs[2]) - 1;
@@ -45,13 +46,13 @@ public class RecurringEventCreator {
 			Calendar eventStartDate = Calendar.getInstance();
 			eventStartDate.set(Calendar.YEAR, year);
 			eventStartDate.set(Calendar.MONTH, MONTHS[startMonth]);
-			eventStartDate.set(Calendar.DAY_OF_MONTH, 1);
+			eventStartDate.set(Calendar.DAY_OF_MONTH, 1); //? 
 			eventStartDate.set(Calendar.HOUR_OF_DAY, startHour);
 			eventStartDate.set(Calendar.MINUTE, 0);
 
 			// Create ending date & time for first event
-			Calendar eventEndDate = (Calendar) eventStartDate.clone(); // All data is primitive, so no need for
-																		// implementing deep clone
+			Calendar eventEndDate = (Calendar) eventStartDate.clone(); // All data is primitive, so no need for implementing deep clone
+																		
 			eventEndDate.set(Calendar.HOUR_OF_DAY, endHour);
 
 			boolean[] hasEvent = new boolean[7]; // Checks for recurring event on day of week
@@ -71,5 +72,4 @@ public class RecurringEventCreator {
 		}
 		return events;
 	}
-	
 }
