@@ -134,17 +134,4 @@ public class AgendaView implements ViewStrategy
     {
         area.setText(newText);
     }
-	
-	public String eventsToString(ArrayList<Event> e)
-    {
-        String retrn = "";
-        boolean noEvent = true;
-        for (Event temp : e)
-        {
-            noEvent = false;
-            retrn += temp.getDate() + temp.getStartTime()+ " - " + temp.getEndTime() + "\n";
-        }
-
-        return (noEvent) ? "No Events Scheduled" : retrn;
-    }
 }
