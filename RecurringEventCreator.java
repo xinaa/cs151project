@@ -31,7 +31,7 @@ public class RecurringEventCreator {
 		for (String[] inputs : eventInputs) { // For every recurring event inputed
 
 			if (inputs.length != 7) // Check if valid number of inputs were given
-				return null; //Abandons everything event events already created :l
+				continue; //Abandons everything event events already created :l
 
 			//Get event details from the String in the Array
 			String eventName = inputs[0];
@@ -54,15 +54,20 @@ public class RecurringEventCreator {
 			Calendar eventEndDate = (Calendar) eventStartDate.clone(); // All data is primitive, so no need for implementing deep clone
 																		
 			eventEndDate.set(Calendar.HOUR_OF_DAY, endHour);
+			
+			Calendar afterEndMonth = (Calendar) eventEndDate.clone();
+			afterEndMonth.set(Calendar.MONTH, MONTHS[endMonth]);
+			afterEndMonth.add(Calendar.MONTH, 1);
+			int aEM = afterEndMonth.get(Calendar.MONTH);
 
 			boolean[] hasEvent = new boolean[7]; // Checks for recurring event on day of week
-
+			
 			for (int i = 0; i < weekSequence.length(); i++) { // For each day of the week
 				if (eventSequence.contains(String.valueOf(weekSequence.charAt(i))))
 					hasEvent[i] = true;
 			}
 
-			for (; eventEndDate.get(Calendar.MONTH) != endMonth; //For each day between starting and ending month
+			for (; eventEndDate.get(Calendar.MONTH) != aEM; //For each day between starting and ending month
 					eventStartDate.add(Calendar.DAY_OF_YEAR, 1), eventEndDate.add(Calendar.DAY_OF_YEAR, 1)) {
 				if (hasEvent[eventStartDate.get(Calendar.DAY_OF_WEEK) - 1]) {
 					events.add(new Event(eventName, dateFormatter.format(eventStartDate.getTime()),	
