@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -10,6 +11,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TreeSet;
+
+import javax.swing.JLabel;
 
 /**
  * Custom JPanel Class. Holds a calendar, instance of a data model, and Grid depicting times of day. 
@@ -101,6 +104,10 @@ public class DayView implements ViewStrategy {
 				String day = fullNameDays[c.get(Calendar.DAY_OF_WEEK) - 1 ] + " " +
 						(c.get(Calendar.MONTH) + 1) + "/"+ c.get(Calendar.DAY_OF_MONTH); 
 				
+				Font defaultFont = new JLabel().getFont(); 
+				Font bigFont = new Font(defaultFont.toString(), Font.BOLD, 24); 
+				
+				g2.setFont(bigFont);
 				Font f = g2.getFont(); 
 				FontRenderContext context = g2.getFontRenderContext(); 
 				Rectangle2D bounds = f.getStringBounds(day, context);
@@ -108,8 +115,20 @@ public class DayView implements ViewStrategy {
 				double x = (container.getWidth() - bounds.getWidth()) / 2;
 				//double y = (this.getHeight() - bounds.getHeight()) / 2;
 
-				g2.drawString(day, (int) x, container.getHeight()/2); 
+				g2.drawString(day, (int) x, (int) ((container.getHeight()/2) + (bounds.getHeight()/2))); 
 		
 
 	}
+
+
+//	@Override
+//	public Dimension getGridDimension() {
+//	
+//		return new Dimension(1000,1440);
+//	}
+	
+//	public boolean needsScroll()
+//	{
+//		return true; 
+//	}
 }
