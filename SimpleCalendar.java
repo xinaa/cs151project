@@ -85,10 +85,6 @@ public class SimpleCalendar {
 		wrapperPanel.setMaximumSize(monthDimension);
 		wrapperPanel.add(monthPanel); 
 
-		//Create view panel and add appropriate view 
-//		JPanel viewPanel = new JPanel(); 
-//		viewPanel.add((Component) v); 
-		
 		//Create and format panel holding buttons - (create, quit, prev view, next view)
 		JPanel buttonPanel = new JPanel(); 
 		buttonPanel.setLayout( new BorderLayout());
@@ -253,15 +249,22 @@ public class SimpleCalendar {
 //			}
 //		}); 
 //		
-//		yearViewButton.addActionListener(new ActionListener()
-//		{
-//			public void actionPerformed(ActionEvent event)
-//			{
-//				currentView = ViewType.YEAR; 
-//				updateView(yearView); 
-//				
-//			}
-//		}); 
+		yearViewButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				currentView = ViewType.YEAR; 
+				viewPanel.changeView(new YearView()); 
+				
+				dayViewButton.setForeground(Color.BLACK);
+				weekViewButton.setForeground(Color.BLACK); 
+				monthViewButton.setForeground(Color.BLACK);
+				yearViewButton.setForeground(Color.RED);
+				agendaButton.setForeground(Color.BLACK);
+				
+				frame.repaint(); 
+			}
+		}); 
 //		
 //		agendaButton.addActionListener(new ActionListener()
 //		{
@@ -271,6 +274,9 @@ public class SimpleCalendar {
 //				updateView(agendaView); 
 //			}
 //		}); 
+		
+		
+		dayViewButton.setForeground(Color.RED);
 		
 		//if previous button is pressed, program's calendar moves to the previous day - all views updated
 		prevView.addActionListener(new ActionListener()
