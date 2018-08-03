@@ -121,6 +121,13 @@ public class DayView implements ViewStrategy {
 	}
 
 
+	@Override
+	public Dimension getGridDimension() {
+		
+		return new Dimension(1000,1440); 
+	}
+
+
 //	@Override
 //	public Dimension getGridDimension() {
 //	
