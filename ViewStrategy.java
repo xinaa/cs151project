@@ -1,5 +1,6 @@
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.GregorianCalendar;
 
@@ -15,4 +16,5 @@ public interface ViewStrategy{
 
 	void drawHeader(GregorianCalendar c, Graphics2D g2, Component container); 
 	void drawEventGrid(GregorianCalendar c, DataModel d, Graphics2D g2, Component container); 
+	Dimension getGridDimension(); 
 }
