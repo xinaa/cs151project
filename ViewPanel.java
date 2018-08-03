@@ -17,6 +17,11 @@ public class ViewPanel extends JPanel implements ChangeListener{
 	private GregorianCalendar calendar; 
 	private DataModel events; 
 	
+	private JPanel eventGrid; 
+	private JPanel header; 
+	private JScrollPane scroll; 
+	
+	static final Dimension SCROLL_DIM = new Dimension(1000, 840); 
 	
 	public ViewPanel(ViewStrategy v, GregorianCalendar c, DataModel d)
 	{
@@ -29,7 +34,7 @@ public class ViewPanel extends JPanel implements ChangeListener{
 		
 	
 		//Create Grid showing events
-		JPanel eventGrid = new JPanel()
+		eventGrid = new JPanel()
 				{
 					public void paintComponent(Graphics g)
 					{
@@ -47,11 +52,11 @@ public class ViewPanel extends JPanel implements ChangeListener{
 		//Set up a scroll panel and add eventGrid
 		int horizontalPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED;
 		int verticalPolicy = JScrollPane.VERTICAL_SCROLLBAR_ALWAYS;
-		JScrollPane scroll = new JScrollPane(eventGrid, verticalPolicy, horizontalPolicy); 
-		scroll.setMinimumSize(new Dimension(1000,840));
-		scroll.setPreferredSize(new Dimension(1000,840));
+		scroll = new JScrollPane(eventGrid, verticalPolicy, horizontalPolicy); 
+		scroll.setMinimumSize(new Dimension(SCROLL_DIM));
+		scroll.setPreferredSize(new Dimension(SCROLL_DIM));
 		
-		JPanel header = new JPanel()
+		header = new JPanel()
 		{
 			public void paintComponent(Graphics g)
 			{
@@ -78,6 +83,20 @@ public class ViewPanel extends JPanel implements ChangeListener{
 		this.repaint(); 
 	}
 	
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+		eventGrid.setPreferredSize(viewStrat.getGridDimension());
+		
+		if (viewStrat.getGridDimension().getHeight() <= SCROLL_DIM.getHeight()) 
+			scroll.getVerticalScrollBar().setVisible(false);
+
+		else
+			scroll.getVerticalScrollBar().setVisible(true); 
+		
+		this.repaint(); 
+		
+	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
