@@ -60,7 +60,7 @@ public class RecurringEventCreator {
 			afterEndMonth.add(Calendar.MONTH, 1);
 			
 			//Case-checking if startMonth is 1 and endMonth is 12
-			if(eventStartDate.get(Calendar.MONTH) == 1 eventStartDate.get(Calendar.MONTH) && afterEndMonth.get(Calendar.MONTH))
+			if(eventStartDate.get(Calendar.MONTH) == 1 && eventStartDate.get(Calendar.MONTH) == afterEndMonth.get(Calendar.MONTH))
 				eventStartDate.add(Calendar.MONTH, 1);
 			
 			int aEM = afterEndMonth.get(Calendar.MONTH);
