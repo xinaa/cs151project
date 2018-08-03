@@ -89,7 +89,10 @@ public class ViewPanel extends JPanel implements ChangeListener{
 		eventGrid.setPreferredSize(viewStrat.getGridDimension());
 		
 		if (viewStrat.getGridDimension().getHeight() <= SCROLL_DIM.getHeight()) 
+		{
+			scroll.getVerticalScrollBar().setValue(0);
 			scroll.getVerticalScrollBar().setVisible(false);
+		}
 
 		else
 			scroll.getVerticalScrollBar().setVisible(true); 
