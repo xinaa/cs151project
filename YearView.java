@@ -175,53 +175,10 @@ public class YearView implements ViewStrategy{
 
 	}
 
-	//	@Override
-	//	public Dimension getGridDimension() {
-	//		
-	//		return new Dimension(1000,840);
-	//	}
-	//
-	//	public boolean needsScroll()
-	//	{
-	//		return false; 
-	//	}
+	@Override
+	public Dimension getGridDimension() {
+		
+		return new Dimension(1000,840);
+	}
 
-
-	//public static void main(String[] args)
-	//{
-	//	GregorianCalendar c = new GregorianCalendar(); 
-	//	JFrame frame = new JFrame(); 
-	//	YearView yearView = new YearView(); 
-	//	DataModel d = new DataModel(); 
-	//
-	//	JPanel testHeader = new JPanel()
-	//	{
-	//		public void paintComponent(Graphics g)
-	//		{
-	//			super.paintComponent(g);
-	//			Graphics2D g2 = (Graphics2D) g; 
-	//
-	//			yearView.drawHeader(c, g2, this);
-	//		}
-	//	}; 
-	//
-	//	JPanel testBody = new JPanel()
-	//	{
-	//
-	//		public void paintComponent(Graphics g)
-	//		{
-	//			super.paintComponent(g);
-	//			Graphics2D g2 = (Graphics2D) g; 
-	//
-	//			yearView.drawEventGrid(c, d, g2, this); 
-	//		}
-	//
-	//	};
-	//
-	//	frame.setSize(new Dimension(300,300));
-	//	frame.add(testBody); 
-	//	frame.setVisible(true);
-	//	frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-	//
-	//}
 }
