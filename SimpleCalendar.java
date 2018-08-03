@@ -212,45 +212,58 @@ public class SimpleCalendar {
 					//ActionPerformed for the pop up window when Agenda button is selected
 					public void actionPerformed(ActionEvent event)
 					{
-					    
-						final JFrame frame = new JFrame();
+
+						final JFrame agendaDateFetcherFrame = new JFrame();
 			            final JTextField startDate;
 			            final JTextField endDate;
-			            frame.setTitle("Agenda Date Lookup");
+			            agendaDateFetcherFrame.setTitle("Agenda Date Lookup");
 			            final JPanel panel = new JPanel();
 			            panel.setLayout(new GridLayout(5, 5));
-			            panel.add(new JLabel("     Start Date: "));
+			            panel.add(new JLabel("     Start Date: (MM/DD/YYYY) "));
 			            startDate = new JTextField(5);
 			            panel.add(startDate);
-			            panel.add(new JLabel("     End Date: "));
+			            panel.add(new JLabel("     End Date: (MM/DD/YYYY) "));
 			            endDate = new JTextField(5);
 			            panel.add(endDate);
 			            panel.add(new JLabel());
-			            JButton search = new JButton("Search");
-			            panel.add(search);
-			            frame.add(panel);
-			            frame.pack();
-			            frame.setVisible(true);
-			            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   
-			            search.addActionListener(new ActionListener()
+			            JButton getAgenda = new JButton("Get Agenda");
+			            panel.add(getAgenda);
+			            agendaDateFetcherFrame.add(panel);
+			            agendaDateFetcherFrame.pack();
+			            agendaDateFetcherFrame.setVisible(true);
+			            agendaDateFetcherFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   
+			            getAgenda.addActionListener(new ActionListener()
 			            {
-			                @Override
-			                public void actionPerformed(ActionEvent e)
-			                {
-			                    frame.setVisible(false);
-			                    currentView = ViewType.AGENDA;
-				    				viewPanel.changeView(new AgendaView(startDate.getText(), endDate.getText()));
-				    				dayViewButton.setForeground(Color.BLACK);
-				    				weekViewButton.setForeground(Color.BLACK); 
-				    				monthViewButton.setForeground(Color.BLACK);
-				    				yearViewButton.setForeground(Color.BLACK);
-				    				agendaButton.setForeground(Color.RED);
-				    				frame.repaint(); 
-				    				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);	
-			                }
-			            });
+			            	@Override
+			            		public void actionPerformed(ActionEvent e)
+			            		{
+			            			agendaDateFetcherFrame.setVisible(false);
+			            	
+			            			String enteredStartDate = startDate.getText(); 
+			            			String enteredEndDate = endDate.getText(); 
+			            			
+			            			 if (enteredStartDate.length() == 10 && enteredEndDate.length() == 10)
+			 			         {
+			            				currentView = ViewType.AGENDA;
+			 			            	viewPanel.changeView(new AgendaView(enteredStartDate, enteredEndDate));
+			 		            		dayViewButton.setForeground(Color.BLACK);
+			 		            		weekViewButton.setForeground(Color.BLACK); 
+			 		            		monthViewButton.setForeground(Color.BLACK);
+			 		            		yearViewButton.setForeground(Color.BLACK);
+			 		            		agendaButton.setForeground(Color.RED);
+			 		            		frame.repaint(); 
+			 			          }
+			 			          else
+			 			          {
+			 			            		javax.swing.JOptionPane.showMessageDialog(null, "Dates for Agenda View not entered properly. Please try again.");
+			 			          }
+			            		}
+
+			            	});
+
 					}
-				
+
+
 				}); 
 			
 		
@@ -266,7 +279,7 @@ public class SimpleCalendar {
 				monthViewButton.setForeground(Color.BLACK);
 				yearViewButton.setForeground(Color.BLACK);
 				agendaButton.setForeground(Color.BLACK);
-				//revalidate....?
+
 				frame.repaint();  
 			}
 		}); 
