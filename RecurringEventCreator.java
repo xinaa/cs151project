@@ -71,9 +71,15 @@ public class RecurringEventCreator {
 				if (eventSequence.contains(String.valueOf(weekSequence.charAt(i))))
 					hasEvent[i] = true;
 			}
+			
+			int curYear = eventStartDate.get(Calendar.YEAR);
 
 			for (; eventEndDate.get(Calendar.MONTH) != aEM; //For each day between starting and ending month
 					eventStartDate.add(Calendar.DAY_OF_YEAR, 1), eventEndDate.add(Calendar.DAY_OF_YEAR, 1)) {
+				if(eventStartDate.get(Calendar.YEAR) != curYear) {
+					eventStartDate.add(Calendar.YEAR, -1);
+					eventEndDate.add(Calendar.YEAR, -1);
+				}
 				if (hasEvent[eventStartDate.get(Calendar.DAY_OF_WEEK) - 1]) {
 					events.add(new Event(eventName, dateFormatter.format(eventStartDate.getTime()),	
 							timeFormatter.format(eventStartDate.getTime()), timeFormatter.format(eventEndDate.getTime())));
