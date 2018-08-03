@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
@@ -20,6 +21,9 @@ public class AgendaView implements ViewStrategy
 	static JTextArea area;
 	private String startDate; 
 	private String endDate;
+	
+	private int height; 
+	private int width; 
 
 	public AgendaView(String start, String end)
 	{
@@ -29,6 +33,8 @@ public class AgendaView implements ViewStrategy
 
 	public void drawEventGrid(GregorianCalendar c, DataModel d, Graphics2D g2, Component container)
 	{
+		width = container.getWidth(); 
+		
 		ArrayList<Event> eventsForThisAgenda = new ArrayList<Event>();
 
 		int startMonth = Integer.parseInt(startDate.substring(0,2)); 
@@ -76,7 +82,10 @@ public class AgendaView implements ViewStrategy
 				g2.setColor(Color.BLACK);
 				g2.drawString(eventDetails, 60, ((j+1) * 60) - 10);
 
+				height = j*60; 
 			}
+			
+
 		}
 	}
 
@@ -90,6 +99,12 @@ public class AgendaView implements ViewStrategy
 		double x = (container.getWidth() - bounds.getWidth()) / 2;
 
 		g2.drawString("Agenda: " + startDate + " - " + endDate, (int) x, container.getHeight()/2); 
+	}
+
+	@Override
+	public Dimension getGridDimension() {
+	
+		return new Dimension(width, height);
 	}
 
 
