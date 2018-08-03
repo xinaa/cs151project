@@ -1,27 +1,20 @@
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeListener;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent; 
+import java.awt.event.ActionEvent;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class SimpleCalendar {
 	
@@ -212,58 +205,45 @@ public class SimpleCalendar {
 					//ActionPerformed for the pop up window when Agenda button is selected
 					public void actionPerformed(ActionEvent event)
 					{
-
-						final JFrame agendaDateFetcherFrame = new JFrame();
+					    
+						final JFrame frame = new JFrame();
 			            final JTextField startDate;
 			            final JTextField endDate;
-			            agendaDateFetcherFrame.setTitle("Agenda Date Lookup");
+			            frame.setTitle("Agenda Date Lookup");
 			            final JPanel panel = new JPanel();
 			            panel.setLayout(new GridLayout(5, 5));
-			            panel.add(new JLabel("     Start Date: (MM/DD/YYYY) "));
+			            panel.add(new JLabel("     Start Date: "));
 			            startDate = new JTextField(5);
 			            panel.add(startDate);
-			            panel.add(new JLabel("     End Date: (MM/DD/YYYY) "));
+			            panel.add(new JLabel("     End Date: "));
 			            endDate = new JTextField(5);
 			            panel.add(endDate);
 			            panel.add(new JLabel());
-			            JButton getAgenda = new JButton("Get Agenda");
-			            panel.add(getAgenda);
-			            agendaDateFetcherFrame.add(panel);
-			            agendaDateFetcherFrame.pack();
-			            agendaDateFetcherFrame.setVisible(true);
-			            agendaDateFetcherFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   
-			            getAgenda.addActionListener(new ActionListener()
+			            JButton search = new JButton("Search");
+			            panel.add(search);
+			            frame.add(panel);
+			            frame.pack();
+			            frame.setVisible(true);
+			            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   
+			            search.addActionListener(new ActionListener()
 			            {
-			            	@Override
-			            		public void actionPerformed(ActionEvent e)
-			            		{
-			            			agendaDateFetcherFrame.setVisible(false);
-			            	
-			            			String enteredStartDate = startDate.getText(); 
-			            			String enteredEndDate = endDate.getText(); 
-			            			
-			            			 if (enteredStartDate.length() == 10 && enteredEndDate.length() == 10)
-			 			         {
-			            				currentView = ViewType.AGENDA;
-			 			            	viewPanel.changeView(new AgendaView(enteredStartDate, enteredEndDate));
-			 		            		dayViewButton.setForeground(Color.BLACK);
-			 		            		weekViewButton.setForeground(Color.BLACK); 
-			 		            		monthViewButton.setForeground(Color.BLACK);
-			 		            		yearViewButton.setForeground(Color.BLACK);
-			 		            		agendaButton.setForeground(Color.RED);
-			 		            		frame.repaint(); 
-			 			          }
-			 			          else
-			 			          {
-			 			            		javax.swing.JOptionPane.showMessageDialog(null, "Dates for Agenda View not entered properly. Please try again.");
-			 			          }
-			            		}
-
-			            	});
-
+			                @Override
+			                public void actionPerformed(ActionEvent e)
+			                {
+			                    frame.setVisible(false);
+			                    currentView = ViewType.AGENDA;
+				    				viewPanel.changeView(new AgendaView(startDate.getText(), endDate.getText()));
+				    				dayViewButton.setForeground(Color.BLACK);
+				    				weekViewButton.setForeground(Color.BLACK); 
+				    				monthViewButton.setForeground(Color.BLACK);
+				    				yearViewButton.setForeground(Color.BLACK);
+				    				agendaButton.setForeground(Color.RED);
+				    				frame.repaint(); 
+				    				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);	
+			                }
+			            });
 					}
-
-
+				
 				}); 
 			
 		
@@ -279,7 +259,7 @@ public class SimpleCalendar {
 				monthViewButton.setForeground(Color.BLACK);
 				yearViewButton.setForeground(Color.BLACK);
 				agendaButton.setForeground(Color.BLACK);
-
+				//revalidate....?
 				frame.repaint();  
 			}
 		}); 
@@ -300,16 +280,24 @@ public class SimpleCalendar {
 				frame.repaint(); 
 			}
 		}); 
-//		
-//		monthViewButton.addActionListener(new ActionListener()
-//		{
-//			public void actionPerformed(ActionEvent event)
-//			{
-//				currentView = ViewType.MONTH; 
-//				updateView(monthView); 
-//			}
-//		}); 
-//		
+		
+		monthViewButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent event)
+			{
+				currentView = ViewType.MONTH;  
+				viewPanel.changeView(new MonthView()); 
+				
+				dayViewButton.setForeground(Color.BLACK);
+				weekViewButton.setForeground(Color.BLACK); 
+				monthViewButton.setForeground(Color.RED);
+				yearViewButton.setForeground(Color.BLACK);
+				agendaButton.setForeground(Color.BLACK);
+				
+				frame.repaint(); 
+			}
+		}); 
+		
 		yearViewButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
