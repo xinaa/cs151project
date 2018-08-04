@@ -26,9 +26,6 @@ public class DayView implements ViewStrategy {
 
 	private static String[] fullNameDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 
-	GregorianCalendar c; 
-	DataModel d; 
-
 	public void drawEventGrid(GregorianCalendar c, DataModel d, Graphics2D g2, Component container)
 	{
 				//Draw line dividing hours and events
@@ -96,7 +93,6 @@ public class DayView implements ViewStrategy {
 
 	}
 
-
 	@Override
 	public void drawHeader(GregorianCalendar c, Graphics2D g2, Component container) {
 
@@ -127,15 +123,4 @@ public class DayView implements ViewStrategy {
 		return new Dimension(1000,1440); 
 	}
 
-
-//	@Override
-//	public Dimension getGridDimension() {
-//	
-//		return new Dimension(1000,1440);
-//	}
-	
-//	public boolean needsScroll()
-//	{
-//		return true; 
-//	}
 }
