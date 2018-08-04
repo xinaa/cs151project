@@ -27,17 +27,17 @@ public class MonthView implements ViewStrategy{
 	public void drawHeader(GregorianCalendar c, Graphics2D g2, Component container)
 	{
 		Font defaultFont = new JLabel().getFont(); 
-//		Font dayNumberFont = new Font(defaultFont.toString(), Font.BOLD, 36); 
+        Font dayNumberFont = new Font(defaultFont.toString(), Font.BOLD, 28); 
 		
 		GregorianCalendar temp = (GregorianCalendar) c.clone(); 
-//		int backTrack = temp.getMinimalDaysInFirstWeek(); 		
 		
-		g2.setFont(defaultFont);
+		g2.setFont(dayNumberFont);
 		String monthAtWeekStart = arrayOfMonths[temp.get(Calendar.MONTH)];
 		
-		g2.drawString(monthAtWeekStart + " " + Integer.toString(temp.get(Calendar.YEAR)), 5, 25);
+		g2.drawString(monthAtWeekStart + " " + Integer.toString(temp.get(Calendar.YEAR)), 450, 35);
 	
 	}
+	
 	
 	
 	public void drawEventGrid(GregorianCalendar c, DataModel d, Graphics2D g2, Component container)
