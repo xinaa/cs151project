@@ -1,4 +1,4 @@
-CS151 OO Design Class;2018;6;8;TH;9;11;
+CS151 OO Design;2018;6;8;TH;9;11;
 Internship;2018;6;8;MTWHF;12;17;
 Hangout w/ Friends;2018;1;12;F;19;22;
 Morning Jog;2018;7;9;MWF;5;6;
