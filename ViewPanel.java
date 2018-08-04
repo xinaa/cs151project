@@ -53,6 +53,7 @@ public class ViewPanel extends JPanel implements ChangeListener{
 		int horizontalPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED;
 		int verticalPolicy = JScrollPane.VERTICAL_SCROLLBAR_ALWAYS;
 		scroll = new JScrollPane(eventGrid, verticalPolicy, horizontalPolicy); 
+
 		
 		header = new JPanel()
 		{
@@ -85,21 +86,8 @@ public class ViewPanel extends JPanel implements ChangeListener{
 	{
 		super.paintComponent(g);
 		eventGrid.setPreferredSize(viewStrat.getGridDimension());
-//		scroll.getVerticalScrollBar().setValue(0);
-//		
-//		if (viewStrat.getGridDimension().getHeight() < SCROLL_DIM.getHeight()) 
-//		{
-//			scroll.getVerticalScrollBar().setValue(0);
-//			scroll.getVerticalScrollBar().setVisible(false);
-//		}
-//
-//		else
-//			scroll.getVerticalScrollBar().setVisible(true); 
-		
+
 		scroll.setViewportView(eventGrid);
-		
-		
-		this.repaint(); 
 		
 	}
 
