@@ -74,7 +74,6 @@ public class RecurringEventCreator {
 				}
 			}
 		}
-		System.out.println(events.get(events.size() - 1).toString());
 		return events;
 	}
 }
