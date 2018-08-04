@@ -7,6 +7,8 @@ public class RecurringEventCreator {
 	private static final int[] MONTHS = new int[] { Calendar.JANUARY, Calendar.FEBRUARY, Calendar.MARCH, Calendar.APRIL,
 			Calendar.MAY, Calendar.JUNE, Calendar.JULY, Calendar.AUGUST, Calendar.SEPTEMBER, Calendar.OCTOBER,
 			Calendar.NOVEMBER, Calendar.DECEMBER };
+	
+	private static final String weekSequence = "SMTWHFA";	//Used to check if event recurs on specific days
 
 	private ArrayList<String[]> eventInputs;
 
@@ -22,7 +24,6 @@ public class RecurringEventCreator {
 	 */
 	public ArrayList<Event> createRecurringEvents() {
 		
-		String weekSequence = "SMTWHFA";	//Used to check if event recurs on specific days
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy"); // Formats date for creating event
 		SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm");
 		
@@ -31,7 +32,7 @@ public class RecurringEventCreator {
 		for (String[] inputs : eventInputs) { // For every recurring event inputed
 
 			if (inputs.length != 7) // Check if valid number of inputs were given
-				continue; //Abandons everything event events already created :l
+				return null; //Abandons everything event events already created :l
 
 			//Get event details from the String in the Array
 			String eventName = inputs[0];
@@ -51,41 +52,29 @@ public class RecurringEventCreator {
 			eventStartDate.set(Calendar.MINUTE, 0);
 
 			// Create ending date & time for first event
-			Calendar eventEndDate = (Calendar) eventStartDate.clone(); // All data is primitive, so no need for implementing deep clone
-																		
+			Calendar eventEndDate = (Calendar) eventStartDate.clone(); // All data is primitive, so no need for implementing deep clone			
 			eventEndDate.set(Calendar.HOUR_OF_DAY, endHour);
 			
-			Calendar afterEndMonth = (Calendar) eventEndDate.clone();
-			afterEndMonth.set(Calendar.MONTH, MONTHS[endMonth]);
-			afterEndMonth.add(Calendar.MONTH, 1);
-			
-			//Case-checking if startMonth is 1 and endMonth is 12
-			if(eventStartDate.get(Calendar.MONTH) == 1 && eventStartDate.get(Calendar.MONTH) == afterEndMonth.get(Calendar.MONTH))
-				eventStartDate.add(Calendar.MONTH, 1);
-			
-			int aEM = afterEndMonth.get(Calendar.MONTH);
+			Calendar lastDay = (Calendar) eventEndDate.clone();
+			lastDay.set(Calendar.MONTH, MONTHS[endMonth]);
+			lastDay.set(Calendar.DAY_OF_MONTH, lastDay.getActualMaximum(Calendar.DAY_OF_MONTH));
 
 			boolean[] hasEvent = new boolean[7]; // Checks for recurring event on day of week
-			
+
 			for (int i = 0; i < weekSequence.length(); i++) { // For each day of the week
 				if (eventSequence.contains(String.valueOf(weekSequence.charAt(i))))
 					hasEvent[i] = true;
 			}
-			
-			int curYear = eventStartDate.get(Calendar.YEAR);
 
-			for (; eventEndDate.get(Calendar.MONTH) != aEM; //For each day between starting and ending month
+			for (; eventEndDate.compareTo(lastDay) <= 0; //For each day between starting and ending month
 					eventStartDate.add(Calendar.DAY_OF_YEAR, 1), eventEndDate.add(Calendar.DAY_OF_YEAR, 1)) {
-				if(eventStartDate.get(Calendar.YEAR) != curYear) {
-					eventStartDate.add(Calendar.YEAR, -1);
-					eventEndDate.add(Calendar.YEAR, -1);
-				}
 				if (hasEvent[eventStartDate.get(Calendar.DAY_OF_WEEK) - 1]) {
 					events.add(new Event(eventName, dateFormatter.format(eventStartDate.getTime()),	
 							timeFormatter.format(eventStartDate.getTime()), timeFormatter.format(eventEndDate.getTime())));
 				}
 			}
 		}
+		System.out.println(events.get(events.size() - 1).toString());
 		return events;
 	}
 }
