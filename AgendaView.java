@@ -42,6 +42,9 @@ public class AgendaView implements ViewStrategy
 	@Override 
 	/**
 	 * The method implemented from the View strategy interface that will draw the grid for the agenda view 
+	 * @param c the calendar it uses to get the events on the grid
+	 * @param d the data it gets for the agenda in order for the correct events to be printed on the screen 
+	 * @param containter the container used for the grid to be drawn with selected events 
 	 */
 	public void drawEventGrid(GregorianCalendar c, DataModel d, Graphics2D g2, Component container)
 	{
@@ -76,7 +79,6 @@ public class AgendaView implements ViewStrategy
 		{
 			Font message = new JLabel().getFont();
 			Font letters = new Font(message.toString(), Font.BOLD, 21);
-			FontRenderContext lettering = g2.getFontRenderContext();
 			g2.setFont(letters);
 
 			g2.drawString("                                      No events scheduled for this time frame.", 50, 135); 
@@ -115,6 +117,9 @@ public class AgendaView implements ViewStrategy
 	/**
 	 * Implemented method from the ViewStrategy interface
 	 * Draws the header of the agenda view
+	 * @param c the calendar it uses to get the header information 
+	 * @param g2 the draw the strings 
+	 * @param container the container it gets the dimensions for so header can fit in appropriately 
 	 */
 	public void drawHeader(GregorianCalendar c, Graphics2D g2, Component container) 
 	{
@@ -140,4 +145,3 @@ public class AgendaView implements ViewStrategy
 
 
 }
-
