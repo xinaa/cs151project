@@ -210,7 +210,8 @@ public class YearView implements ViewStrategy{
 
 	@Override
 	/**
-	 * Returns the dimension of the grid that the container should be set to 
+	 * Returns the dimension of the grid that the component containing the grid should be set to 
+	 * @return new Dimension  
 	 */
 	public Dimension getGridDimension() {
 		
