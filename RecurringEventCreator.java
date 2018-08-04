@@ -32,7 +32,7 @@ public class RecurringEventCreator {
 		for (String[] inputs : eventInputs) { // For every recurring event inputed
 
 			if (inputs.length != 7) // Check if valid number of inputs were given
-				return null; //Abandons everything event events already created :l
+				continue; //Abandons everything event events already created :l
 
 			//Get event details from the String in the Array
 			String eventName = inputs[0];
