@@ -45,7 +45,7 @@ public class ViewPanel extends JPanel implements ChangeListener{
 					}
 				};
 				
-		eventGrid.setPreferredSize(new Dimension(1000,1440));
+		eventGrid.setPreferredSize(new Dimension(viewStrat.getGridDimension()));
 		eventGrid.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		eventGrid.setBackground(Color.WHITE);
 		
@@ -87,15 +87,19 @@ public class ViewPanel extends JPanel implements ChangeListener{
 	{
 		super.paintComponent(g);
 		eventGrid.setPreferredSize(viewStrat.getGridDimension());
+//		scroll.getVerticalScrollBar().setValue(0);
+//		
+//		if (viewStrat.getGridDimension().getHeight() < SCROLL_DIM.getHeight()) 
+//		{
+//			scroll.getVerticalScrollBar().setValue(0);
+//			scroll.getVerticalScrollBar().setVisible(false);
+//		}
+//
+//		else
+//			scroll.getVerticalScrollBar().setVisible(true); 
 		
-		if (viewStrat.getGridDimension().getHeight() <= SCROLL_DIM.getHeight()) 
-		{
-			scroll.getVerticalScrollBar().setValue(0);
-			scroll.getVerticalScrollBar().setVisible(false);
-		}
-
-		else
-			scroll.getVerticalScrollBar().setVisible(true); 
+		scroll.setViewportView(eventGrid);
+		
 		
 		this.repaint(); 
 		
