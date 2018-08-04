@@ -63,9 +63,9 @@ public class AgendaView implements ViewStrategy
 		GregorianCalendar temp = new GregorianCalendar(startYear, startMonth - 1, startDay); 
 
 
-		while (temp.get(Calendar.MONTH) != (endMonth - 1) || temp.get(Calendar.DAY_OF_MONTH) != (endDay) || temp.get(Calendar.YEAR) != endYear)
+		while (temp.get(Calendar.MONTH) != (endMonth - 1) || temp.get(Calendar.DAY_OF_MONTH) != (endDay + 1) || temp.get(Calendar.YEAR) != endYear)
 		{
-			eventsForThisAgenda.addAll(d.getEvents(temp.get(Calendar.MONTH) + 1, temp.get(Calendar.DAY_OF_MONTH) + 1, 
+			eventsForThisAgenda.addAll(d.getEvents(temp.get(Calendar.MONTH) + 1, temp.get(Calendar.DAY_OF_MONTH), 
 					temp.get(Calendar.YEAR))); 
 
 			temp.add(Calendar.DAY_OF_MONTH, 1);
