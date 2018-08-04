@@ -14,12 +14,24 @@ import java.util.TreeSet;
 
 import javax.swing.JLabel;
 
+/**
+ * WeekView is a concrete strategy that implements the ViewStrategy interface. Defines the look and 
+ * feel of the header and week grid to be plugged into a container's paintComponent method . 
+ * @author Christina Andrade
+ */
 public class WeekView implements ViewStrategy{
 
 	private static String[] partialDayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	static final String[] arrayOfAbbreviatedMonths = {"Jan", "Feb","Mar","Apr","May","Jun",
 			"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
+	@Override
+	/**
+	 * Defines the look of the header for year view
+	 * @param c GregorianCalendar holding the week to be drawn
+	 * @param g2 the graphics package
+	 * @param container the container that will rely on this method to define it's look and feel 
+	 */
 	public void drawHeader(GregorianCalendar c, Graphics2D g2, Component container)
 	{
 				Font defaultFont = new JLabel().getFont(); 
@@ -67,7 +79,14 @@ public class WeekView implements ViewStrategy{
 
 	}
 
-
+	@Override
+	/**
+	 * Defines the look of the week view grid (the days shown) 
+	 * @param c GregorianCalendar holding the week to be drawn
+	 * @param d the data model holding event information 
+	 * @param g2 the graphics package
+	 * @param container the container that will rely on this method to define it's look and feel 
+	 */
 	public void drawEventGrid(GregorianCalendar c, DataModel d, Graphics2D g2, Component container)
 	{
 				 Map<String, TreeSet<Event>> events = d.getEvents(); 
@@ -169,6 +188,8 @@ public class WeekView implements ViewStrategy{
 
 
 						g2.setColor(Color.WHITE);
+						String name = e.getName();
+						
 						g2.drawString( " " + e.getName(), (60 + (weekDayIndex - 1)  * ((container.getWidth()-60)/7)), ((startHour * 60) + startMin + fm.getHeight())); 
 						g2.drawString(" " + e.getStartTime() + " - " + e.getEndTime(), (60 + (weekDayIndex - 1)  * ((container.getWidth()-60)/7)), ((startHour * 60) + startMin + fm.getHeight()*2));
 					}
@@ -178,6 +199,10 @@ public class WeekView implements ViewStrategy{
 
 
 	@Override
+	/**
+	 * Returns the dimension of the grid that the component containing the grid should be set to 
+	 * @return new Dimension  
+	 */
 	public Dimension getGridDimension() {
 	
 		return new Dimension (1000,1440);
