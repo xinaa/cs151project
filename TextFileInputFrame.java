@@ -12,18 +12,16 @@ import javax.swing.JTextField;
 
 public class TextFileInputFrame extends JFrame{
 	
-	FileParser parser;
 	JLabel header;
 	JTextField inputField;
 	JButton submitButton;	
 	
-	private static final int FONT_SIZE = 20;
+	private static final int FONT_SIZE = 16;
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 120;
 	
-	public TextFileInputFrame(FileParser parser) {
+	public TextFileInputFrame(DataModel model) {
 		JFrame itself = this;
-		this.parser = parser;
 		
 		this.setLayout(new BorderLayout());
 		this.setSize(WIDTH, HEIGHT);
@@ -37,8 +35,8 @@ public class TextFileInputFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				parser.filePath = inputField.getText();
-				itself.dispatchEvent(new WindowEvent(itself, WindowEvent.WINDOW_CLOSING));
+				model.loadInRecurringEvents(inputField.getText());
+				itself.dispose();
 			}
 			
 		});
