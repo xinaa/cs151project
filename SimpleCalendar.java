@@ -200,52 +200,53 @@ public class SimpleCalendar {
 		});
 		
 		//Action Listener for the agenda Button
-				agendaButton.addActionListener(new ActionListener() 
+		agendaButton.addActionListener(new ActionListener() 
+		{
+			//ActionPerformed for the pop up window when Agenda button is selected
+			//User will be instructed to add in a starting date and ending date 
+			public void actionPerformed(ActionEvent event)
+			{
+
+				final JFrame frame = new JFrame();
+				final JTextField startDate;
+				final JTextField endDate;
+				frame.setTitle("Agenda Date Lookup");
+				final JPanel panel = new JPanel();
+				panel.setLayout(new GridLayout(5, 5));
+				panel.add(new JLabel("     Start Date (MM/DD/YYYY) : "));
+				startDate = new JTextField(5);
+				panel.add(startDate);
+				panel.add(new JLabel("     End Date (MM/DD/YYYY) : "));
+				endDate = new JTextField(5);
+				panel.add(endDate);
+				panel.add(new JLabel());
+				JButton search = new JButton("Search");
+				panel.add(search);
+				frame.add(panel);
+				frame.pack();
+				frame.setVisible(true);
+				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   
+				search.addActionListener(new ActionListener()
 				{
-					//ActionPerformed for the pop up window when Agenda button is selected
-					public void actionPerformed(ActionEvent event)
+					//ActionListener for when user clicks on search and the agenda view screen appears 
+					@Override
+					public void actionPerformed(ActionEvent e)
 					{
-					    
-						final JFrame frame = new JFrame();
-			            final JTextField startDate;
-			            final JTextField endDate;
-			            frame.setTitle("Agenda Date Lookup");
-			            final JPanel panel = new JPanel();
-			            panel.setLayout(new GridLayout(5, 5));
-			            panel.add(new JLabel("     Start Date: "));
-			            startDate = new JTextField(5);
-			            panel.add(startDate);
-			            panel.add(new JLabel("     End Date: "));
-			            endDate = new JTextField(5);
-			            panel.add(endDate);
-			            panel.add(new JLabel());
-			            JButton search = new JButton("Search");
-			            panel.add(search);
-			            frame.add(panel);
-			            frame.pack();
-			            frame.setVisible(true);
-			            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   
-			            search.addActionListener(new ActionListener()
-			            {
-			                @Override
-			                public void actionPerformed(ActionEvent e)
-			                {
-			                    frame.setVisible(false);
-			                    currentView = ViewType.AGENDA;
-				    				viewPanel.changeView(new AgendaView(startDate.getText(), endDate.getText()));
-				    				dayViewButton.setForeground(Color.BLACK);
-				    				weekViewButton.setForeground(Color.BLACK); 
-				    				monthViewButton.setForeground(Color.BLACK);
-				    				yearViewButton.setForeground(Color.BLACK);
-				    				agendaButton.setForeground(Color.RED);
-				    				frame.repaint(); 
-				    				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);	
-			                }
-			            });
+						frame.setVisible(false);
+						currentView = ViewType.AGENDA;
+						viewPanel.changeView(new AgendaView(startDate.getText(), endDate.getText()));
+						dayViewButton.setForeground(Color.BLACK);
+						weekViewButton.setForeground(Color.BLACK); 
+						monthViewButton.setForeground(Color.BLACK);
+						yearViewButton.setForeground(Color.BLACK);
+						agendaButton.setForeground(Color.RED);
+						frame.repaint(); 
+						frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);	
 					}
-				
-				}); 
+				});
+			}
 			
+		}); 
 		
 		dayViewButton.addActionListener(new ActionListener()
 		{
@@ -314,16 +315,6 @@ public class SimpleCalendar {
 				frame.repaint(); 
 			}
 		}); 
-//		
-//		agendaButton.addActionListener(new ActionListener()
-//		{
-//			public void actionPerformed(ActionEvent event)
-//			{
-//				currentView = ViewType.AGENDA; 
-//				updateView(agendaView); 
-//			}
-//		}); 
-		
 		
 		dayViewButton.setForeground(Color.RED);
 		
