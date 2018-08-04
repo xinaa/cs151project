@@ -100,7 +100,8 @@ public class SimpleCalendar {
 				{
 					public void actionPerformed(ActionEvent event)
 					{
-						myCal.loadInRecurringEvents();
+						TextFileInputFrame inputFrame = new TextFileInputFrame(myCal);
+						inputFrame.setVisible(true);
 					}
 				});
 
