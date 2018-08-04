@@ -62,18 +62,23 @@ public class AgendaView implements ViewStrategy
 		int endYear = Integer.parseInt(endDate.substring(6));
 
 		GregorianCalendar temp = new GregorianCalendar(startYear, startMonth - 1, startDay); 
-
-
-		while (temp.get(Calendar.MONTH) != (endMonth - 1) || temp.get(Calendar.DAY_OF_MONTH) != (endDay + 1) || temp.get(Calendar.YEAR) != endYear)
+		GregorianCalendar endCal = new GregorianCalendar(endYear, endMonth - 1, endDay);
+	
+		//incremented endCal so that the agenda is inclusive of the end date given 
+		endCal.add(Calendar.DAY_OF_YEAR, 1);
+		
+		
+		while (temp.compareTo(endCal) < 0)
 		{
 			eventsForThisAgenda.addAll(d.getEvents(temp.get(Calendar.MONTH) + 1, temp.get(Calendar.DAY_OF_MONTH), 
 					temp.get(Calendar.YEAR))); 
-
+			
 			temp.add(Calendar.DAY_OF_MONTH, 1);
 			
 			
 		}
 
+		System.out.println("Loop Detector" ); 
 
 		if (eventsForThisAgenda.size() == 0) //If there are no  events scheduled for the date range then show the message
 		{
@@ -81,7 +86,7 @@ public class AgendaView implements ViewStrategy
 			Font letters = new Font(message.toString(), Font.BOLD, 21);
 			g2.setFont(letters);
 
-			g2.drawString("                                      No events scheduled for this time frame.", 50, 135); 
+			g2.drawString("No events scheduled for this time frame.", 50, 135); 
 		}
 		else
 		{
