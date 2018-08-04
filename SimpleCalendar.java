@@ -16,8 +16,14 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * Calendar Program allowing user to create events, import recurring events from a file, and navigate/view the calendar and events scheduled in various
+ * formats (day, week, month, etc.). 
+ * @authors Christina Andrade, Amala Chirayil, Kevin Le, Samantha Jaime
+ */
 public class SimpleCalendar {
 	
+	//for indicating appropriate calendar increments 
 	public enum ViewType{
 		
 		DAY, WEEK, MONTH, YEAR, AGENDA 
@@ -42,10 +48,9 @@ public class SimpleCalendar {
 	}
 	
 	
-
 	public static void main(String[] args) throws IOException
 	{
-		
+		//Construct the calendar (starts out on day of run) and data model 
 		c = new GregorianCalendar(); 
 		DataModel myCal = new DataModel(); 
 		
@@ -53,11 +58,11 @@ public class SimpleCalendar {
 		v = new DayView();	
 		currentView = ViewType.DAY; 
 		
+		//construct and intitialize viewPanel
 		ViewPanel viewPanel = new ViewPanel(v, c, myCal);
 		
 		//attach views to data model 
 		myCal.attach(viewPanel);
-
 
 		//Load Events from events file if any previously scheduled events exist 
 		//user will be informed if the calendar doesn't have any events yet 
@@ -93,13 +98,12 @@ public class SimpleCalendar {
 		westButtonPanel.add(quitButton);
 		westButtonPanel.add(fromFileButton); 
 		
-//		buttonPanel.setAlignmentX(Component.RIGHT_ALIGNMENT); 
-		
-		
+		//Add action when fromFile button is presssed 
 		fromFileButton.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent event)
 					{
+						//Pop up allowing user to input file name
 						TextFileInputFrame inputFrame = new TextFileInputFrame(myCal);
 						inputFrame.setVisible(true);
 					}
@@ -141,6 +145,7 @@ public class SimpleCalendar {
 
 				JPanel p = new JPanel();
 				
+				//Add components
 				p.add(eventDate); 
 				p.add(startTimeInput);
 				p.add(to); 
@@ -150,6 +155,8 @@ public class SimpleCalendar {
 				
 				//pop up box for user input and create Event
 				int result = JOptionPane.showConfirmDialog(null,parent, "Please enter event details", JOptionPane.OK_CANCEL_OPTION); 
+				
+				//If the user presses OK, the event details are obtained from the pop up fields and the data model attempts to add the event
 				if (result == JOptionPane.OK_OPTION)
 				{
 					Event eventToSchedule = new Event(eventTitle.getText(), eventDate.getText(), startTimeInput.getText(), endTimeInput.getText()); 
@@ -186,7 +193,7 @@ public class SimpleCalendar {
 		JButton yearViewButton = new JButton("Year"); 
 		JButton agendaButton = new JButton("Agenda"); 
 
-
+		//Today button changes the calendar and view format to the date of run 
 		todayButton.addActionListener(new ActionListener()
 		{
 
@@ -249,6 +256,7 @@ public class SimpleCalendar {
 			
 		}); 
 		
+		//Changes the view to dayView - updates the viewStrategy for the ViewPanel 
 		dayViewButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
@@ -261,11 +269,12 @@ public class SimpleCalendar {
 				monthViewButton.setForeground(Color.BLACK);
 				yearViewButton.setForeground(Color.BLACK);
 				agendaButton.setForeground(Color.BLACK);
-				//revalidate....?
+
 				frame.repaint();  
 			}
 		}); 
 		
+		//Changes the view to weekView - updates the viewStrategy for the ViewPanel 
 		weekViewButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
@@ -283,6 +292,7 @@ public class SimpleCalendar {
 			}
 		}); 
 		
+		//Changes the view to MonthView - updates the viewStrategy for the ViewPanel 
 		monthViewButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
@@ -300,6 +310,7 @@ public class SimpleCalendar {
 			}
 		}); 
 		
+		//Changes the view to YearView - updates the viewStrategy for the ViewPanel 
 		yearViewButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
@@ -317,9 +328,10 @@ public class SimpleCalendar {
 			}
 		}); 
 		
+		//Day View is the initial view so the button is set to red on start up 
 		dayViewButton.setForeground(Color.RED);
 		
-		//if previous button is pressed, program's calendar moves to the previous day - all views updated
+		//if previous button is pressed, program's ViewPanel and calendar move to the previous view increment - all views updated
 		prevView.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent event)
@@ -343,7 +355,6 @@ public class SimpleCalendar {
 						{
 							c.add(Calendar.YEAR, -1);
 						}
-						//AGENDA?
 							
 						
 						viewPanel.updateCalendar(c); 
@@ -352,7 +363,7 @@ public class SimpleCalendar {
 					}
 				});
 		
-		//if next button is pressed, program's calendar moves to the next day - all views updated
+		//if next button is pressed, program's ViewPanel and calendar move to the next view increment - all views updated
 		nextView.addActionListener( new ActionListener()
 			{
 			
@@ -377,7 +388,6 @@ public class SimpleCalendar {
 					{
 						c.add(Calendar.YEAR, 1);
 					}
-					//AGENDA?
 					
 					viewPanel.updateCalendar(c); 
 					monthPanel.updateSelected(c);
@@ -395,8 +405,6 @@ public class SimpleCalendar {
 		eastButtonPanel.add(agendaButton); 
 		eastButtonPanel.add(prevView); 
 		eastButtonPanel.add(nextView); 
-		
-
 		buttonPanel.add(westButtonPanel, BorderLayout.WEST);
 		buttonPanel.add(eastButtonPanel, BorderLayout.EAST); 
 		frame.add(buttonPanel, BorderLayout.NORTH);
