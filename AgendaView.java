@@ -58,8 +58,6 @@ public class AgendaView implements ViewStrategy
 		int endDay = Integer.parseInt(endDate.substring(3,5));
 		int endYear = Integer.parseInt(endDate.substring(6));
 
-		
-
 		GregorianCalendar temp = new GregorianCalendar(startYear, startMonth - 1, startDay); 
 
 
@@ -137,8 +135,9 @@ public class AgendaView implements ViewStrategy
 	public Dimension getGridDimension() 
 	{
 	
-		return new Dimension(width, height);
+		return new Dimension(width, 20000);
 	}
 
 
 }
+
