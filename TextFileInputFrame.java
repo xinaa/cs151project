@@ -10,16 +10,32 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * JFrame that receives file path location from user.
+ * @author Kevin
+ *
+ */
 public class TextFileInputFrame extends JFrame{
 	
+	/**
+	 * Components of the frame
+	 */
 	JLabel header;
 	JTextField inputField;
 	JButton submitButton;	
 	
+	/**
+	 * Constants determining font size and frame's dimensions
+	 */
 	private static final int FONT_SIZE = 16;
 	private static final int WIDTH = 600;
 	private static final int HEIGHT = 120;
 	
+	/**
+	 * Constructor that creates the components of the frame and attaches ActionListener to its button.
+	 * Once the button is pressed, the text information within the text box is sent to the model
+	 * @param model Model representative of the Calendar
+	 */
 	public TextFileInputFrame(DataModel model) {
 		JFrame itself = this;
 		
