@@ -19,7 +19,7 @@ import javax.swing.event.ChangeListener;
 
 
 /**
- * Models a calendar that manages events. Calendar can load events from a file, save events to a file, 
+ * Models a calendar that manages events. Calendar can load events from a file (including loading recurring events from a file), save events to a file, 
  * create events (add data). The Model also informs listeners of relevant changes to the data. 
  * @author Christina Andrade
  * @version Draft - Last Update June 22nd 2018
@@ -31,7 +31,8 @@ public class DataModel {
 
 
 	/**
-	 * Constructs the Tree Map that will hold dates that point to a collection of events on that date 
+	 * Constructs the Tree Map that will hold dates that point to a collection of events on that date. 
+	 * The tree set uses dates in string format (YYYY/MM/DD) that map to a TreeSet of events for that date. 
 	 */
 	public DataModel()
 	{	
@@ -50,7 +51,6 @@ public class DataModel {
 	}
 	
 	
-	//EHHHHH????
 	/**
 	 * Takes a date in MM/DD/YYYY format, formats it, then gets the events on that date from the TreeMap 
 	 * @param month 
@@ -70,6 +70,10 @@ public class DataModel {
 		return new TreeSet<Event>(); 
 	}
 	
+	/**
+	 * Gets the entire Map contained in the data model 
+	 * @return events all of the String dates and mapped values in the data model 
+	 */
 	public Map<String, TreeSet<Event>> getEvents()
 	{
 		return events; 
