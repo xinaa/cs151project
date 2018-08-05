@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 /**
  * Custom JPanel Class. Holds a calendar, instance of a data model, and Grid depicting times of day. 
  * According to the data passed from the dataModel and calendar, DayView depicts a day and any events scheduled.
- * throughout the day. 
+ * throughout the day. A concrete strategy implementing ViewStrategy
  * 
  * @author Christina Andrade
  *
@@ -26,6 +26,14 @@ public class DayView implements ViewStrategy {
 
 	private static String[] fullNameDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 
+	@Override
+	/**
+	 * Defines the look of the day view grid (the division of hours and events throughout the day) 
+	 * @param c GregorianCalendar holding the year to be drawn
+	 * @param d the data model holding event information 
+	 * @param g2 the graphics package
+	 * @param container the container that will rely on this method to define it's look and feel 
+	 */
 	public void drawEventGrid(GregorianCalendar c, DataModel d, Graphics2D g2, Component container)
 	{
 				//Draw line dividing hours and events
@@ -94,6 +102,12 @@ public class DayView implements ViewStrategy {
 	}
 
 	@Override
+	/**
+	 * Defines the look of the header for day view
+	 * @param c GregorianCalendar holding the year to be drawn
+	 * @param g2 the graphics package
+	 * @param container the container that will rely on this method to define it's look and feel 
+	 */
 	public void drawHeader(GregorianCalendar c, Graphics2D g2, Component container) {
 
 
@@ -118,6 +132,10 @@ public class DayView implements ViewStrategy {
 
 
 	@Override
+	/**
+	 * Returns the dimension of the grid that the component containing the grid should be set to 
+	 * @return new Dimension  
+	 */
 	public Dimension getGridDimension() {
 		
 		return new Dimension(1000,1440); 
