@@ -2,16 +2,34 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Generates recurring events with the inputs that have been parsed by FileParser
+ * @author Kevin
+ *
+ */
 public class RecurringEventCreator {
 
+	/**
+	 * Array used for setting months of Calendar objects
+	 */
 	private static final int[] MONTHS = new int[] { Calendar.JANUARY, Calendar.FEBRUARY, Calendar.MARCH, Calendar.APRIL,
 			Calendar.MAY, Calendar.JUNE, Calendar.JULY, Calendar.AUGUST, Calendar.SEPTEMBER, Calendar.OCTOBER,
 			Calendar.NOVEMBER, Calendar.DECEMBER };
 	
+	/**
+	 * Array used to check which days have events or not.
+	 */
 	private static final String weekSequence = "SMTWHFA";	//Used to check if event recurs on specific days
 
+	/**
+	 * Array of Strings representing inputs from FileParser
+	 */
 	private ArrayList<String[]> eventInputs;
 
+	/**
+	 * Constructor
+	 * @param eventInputs Inputs of provided text file; these inputs were parsed by FileParser
+	 */
 	public RecurringEventCreator(ArrayList<String[]> eventInputs) {
 		this.eventInputs = eventInputs;
 	}
@@ -19,8 +37,7 @@ public class RecurringEventCreator {
 	/**
 	 * Method that creates recurring events 
 	 * Order of Strings in inputs: eventName; year; startMonth; endMonth; sequence; startHour; endHour
-	 * 
-	 * @return
+	 * @return ArrayList of Event objects
 	 */
 	public ArrayList<Event> createRecurringEvents() {
 		
@@ -55,6 +72,7 @@ public class RecurringEventCreator {
 			Calendar eventEndDate = (Calendar) eventStartDate.clone(); // All data is primitive, so no need for implementing deep clone			
 			eventEndDate.set(Calendar.HOUR_OF_DAY, endHour);
 			
+			// Represents absolute last day to check for recurring events
 			Calendar lastDay = (Calendar) eventEndDate.clone();
 			lastDay.set(Calendar.MONTH, MONTHS[endMonth]);
 			lastDay.set(Calendar.DAY_OF_MONTH, lastDay.getActualMaximum(Calendar.DAY_OF_MONTH));
