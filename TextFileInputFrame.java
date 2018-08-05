@@ -65,10 +65,20 @@ public class TextFileInputFrame extends JFrame{
 		
 	}
 	
+	/**
+	 * Method to change font size of all components to a set size
+	 * @param components Array of components inputed
+	 * @param n New size of font
+	 */
 	void changeAllFontSizes(Component[] components, int n) {
 		for(Component c : components) changeFontSize(c, n);
 	}
 	
+	/**
+	 * Method to change a font size of one component to a set size
+	 * @param c Component to change font size
+	 * @param size New size of font
+	 */
 	void changeFontSize(Component c, int size) {
 		c.setFont(new Font(c.getFont().getName(), Font.PLAIN, size));
 	}
