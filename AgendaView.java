@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
 /**
  * The view responsible for displaying all events in agenda format 
  * When user clicks on agenda, the user will be able to type in a start date and end date 
- * @Authors Christina Andrade and Samantha Jaime
+ * @Authors Samantha Jaime and Christina Andrade
  */
 public class AgendaView implements ViewStrategy
 {
