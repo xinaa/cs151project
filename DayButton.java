@@ -1,5 +1,4 @@
 
-import java.awt.Graphics;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -8,7 +7,7 @@ import javax.swing.JButton;
 /**
  * Custom JButton Class that stores a reference to a GregorianCalendar that can be retrieved and updated. 
  * Button displays the day of the month of the GregorianCalendar it is given. 
- * @author Christina
+ * @author Christina 
  */
 public class DayButton extends JButton {
 
@@ -17,7 +16,7 @@ public class DayButton extends JButton {
 		
 
 		/**
-		 * Constructs the button and attaches the calendar for it to display
+		 * Constructs the button and attaches the calendar of the day for it to display
 		 * @param cal calendar who's day of month the button should display 
 		 */
 		public DayButton(GregorianCalendar cal)
@@ -56,7 +55,4 @@ public class DayButton extends JButton {
 		}
 		
 
-		
-	
-	
 }
