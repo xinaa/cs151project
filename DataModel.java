@@ -22,7 +22,6 @@ import javax.swing.event.ChangeListener;
  * Models a calendar that manages events. Calendar can load events from a file (including loading recurring events from a file), save events to a file, 
  * create events (add data). The Model also informs listeners of relevant changes to the data. 
  * @author Christina Andrade
- * @version Draft - Last Update June 22nd 2018
  */
 public class DataModel {
 
