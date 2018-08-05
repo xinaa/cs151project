@@ -11,8 +11,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -21,10 +19,10 @@ import javax.swing.border.LineBorder;
 
 /**
  * Custom JPanel Class - Utilizes custom JButton Class to present a calendar. Calendar changes if prev/next buttons 
- * are pressed. Current day is show in red. Has method for attaching listeners for the day buttons. 
+ * are pressed. Current day is show in red. Has method for attaching listeners for the day buttons so the implementing program 
+ * can dictate their function.  
  * @author Christina Andrade
  */
-//Design Question : method to add action listeners that's called in main, but should they be added here? 
 public class MonthPanel extends JPanel{
 
 	private static final String[] arrayOfMonths = {"January", "February","March","April","May","June",
@@ -43,7 +41,7 @@ public class MonthPanel extends JPanel{
 
 	/**
 	 * Constructs and compiles all the components of the clickable calendar 
-	 * @param cal the gregorian calendar whose month the MonthPanel should represent 
+	 * @param cal the GregorianCalendar whose month the MonthPanel should represent 
 	 */
 	public MonthPanel(GregorianCalendar cal)
 	{	
@@ -60,16 +58,18 @@ public class MonthPanel extends JPanel{
 		}	 
 		
 		setLayout(new BorderLayout());
+		
+		//Create and format the calendar panel
 		calendarPanel = new JPanel(); 
 		calendarPanel.setLayout(new GridLayout(7,7));
 
-		//Add day Labels
+		//Add day Labels to top of calendar
 		for (String s : arrayOfDays)
 		{
 			calendarPanel.add(new JLabel(s, SwingConstants.CENTER), BorderLayout.NORTH); 
 		}
 
-		//Add buttons to panel 
+		//Add buttons to the calendar panel 
 		for (DayButton d : dayButtons)
 		{
 			calendarPanel.add(d); 
@@ -130,8 +130,7 @@ public class MonthPanel extends JPanel{
 	 */
 	public void paintComponent(Graphics g)
 	{
-		//Header is updated to the calendar's current month 
-		
+		//Header is updated to the calendar's current month 	
 		monthLabel.setText((arrayOfMonths[(calendar.get(Calendar.MONTH))] + " " + calendar.get(Calendar.YEAR)));
 		monthLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		monthLabel.repaint(); 
@@ -181,7 +180,6 @@ public class MonthPanel extends JPanel{
 
 			temp.add(Calendar.DAY_OF_MONTH, 1);
 
-		//necessary? 
 		super.paintComponent(g);
 		}
 
@@ -220,7 +218,6 @@ public class MonthPanel extends JPanel{
 	 * Attached button listeners to all the buttons - intended so implementing program can decide the buttons' use
 	 * @param a the actionListener to be attached to the button 
 	 */
-	//?
 	public void attachButtonListeners(ActionListener a)
 	{
 		for (DayButton b : dayButtons)
