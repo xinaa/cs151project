@@ -74,11 +74,9 @@ public class AgendaView implements ViewStrategy
 					temp.get(Calendar.YEAR))); 
 			
 			temp.add(Calendar.DAY_OF_MONTH, 1);
-			
-			
+				
 		}
-
-		System.out.println("Loop Detector" ); 
+ 
 
 		if (eventsForThisAgenda.size() == 0) //If there are no  events scheduled for the date range then show the message
 		{
