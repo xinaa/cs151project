@@ -12,6 +12,9 @@ import java.util.GregorianCalendar;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+
+//Test
+
 /**
  * The view responsible for displaying all events in agenda format 
  * When user clicks on agenda, the user will be able to type in a start date and end date 
