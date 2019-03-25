@@ -4,7 +4,6 @@
  * (optional) end time
  * 
  * @author Christina Andrade
- * @version 07.28.2018 HW 3
  */
 public class Event implements Comparable<Event>{
 
